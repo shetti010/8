@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+
+    tools {
+        // Ensure you have named your Maven and JDK installations
+        maven 'Maven' // 'Maven' is the name of your Maven installation in Jenkins
+        jdk 'JDK' // 'JDK' is the name of your JDK installation in Jenkins
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Assumes you're using a git repository
+                git 'https://github.com/shetti010/8/new/main'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Invoke Maven
+                sh 'mvn clean package'
+            }
+        }
+    }
+
+    post {
+        failure {
+            // Actions to perform on failure
+            mail to: 'shettiaws8@gmail.com',
+                 subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                 body: "Something is wrong with ${env.BUILD_URL}"
+        }
+    }
+}
