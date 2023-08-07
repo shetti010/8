@@ -11,7 +11,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Assumes you're using a git repository
-                git 'https://github.com/shetti010/8/new/main'
+                git 'https://github.com/shetti010/8.git'
             }
         }
 
